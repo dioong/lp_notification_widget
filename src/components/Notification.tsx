@@ -1,4 +1,5 @@
 import * as React from "react";
+import '../styles/scss/notification.scss';
 
 interface NotificationProps {uuid: string; notiType: string; message: string; onClickDelete: Function;}
 

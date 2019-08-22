@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/main.scss';
-import {WidgetPositions, notiTypes, NotificationWidgetContainer, showNotification, clearNotifications} from "./exporter";
+import {clearNotifications, NotificationWidgetContainer, NotiPositions, NotiTypes, showNotification} from "./exporter";
 
 class App extends React.Component {
     state: {
@@ -15,8 +15,9 @@ class App extends React.Component {
             notifications: [],
         }
     }
-    _addNotification = (position:WidgetPositions) => {
-        showNotification("test", notiTypes.alert, position)
+    _addNotification = (notiType:NotiTypes, position:NotiPositions) => {
+        const message:string|null = prompt("insert notification message");
+        showNotification(message || "", notiType, position)
     };
     _clearNotifications = () => {
         clearNotifications()
@@ -24,14 +25,14 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <button onClick={event=> this._addNotification(WidgetPositions.tl)}>add tl</button>
-                <button onClick={event=> this._addNotification(WidgetPositions.bl)}>add bl</button>
-                <button onClick={event=> this._addNotification(WidgetPositions.br)}>add br</button>
-                <button onClick={event=> this._addNotification(WidgetPositions.tr)}>add tr</button>
+            <div className={"menu"}>
+                <button onClick={event=> this._addNotification(NotiTypes.alert, NotiPositions.tl)}>add tl alert</button>
+                <button onClick={event=> this._addNotification(NotiTypes.warning, NotiPositions.bl)}>add bl warning</button>
+                <button onClick={event=> this._addNotification(NotiTypes.info, NotiPositions.br)}>add br info</button>
+                <button onClick={event=> this._addNotification(NotiTypes.alert, NotiPositions.tr)}>add tr alert</button>
                 <button onClick={event=> this._clearNotifications()}>clear</button>
                 <NotificationWidgetContainer
-                    autoHideTime={3000}
+                    autoHideTime={5000}
                 />
             </div>
         )

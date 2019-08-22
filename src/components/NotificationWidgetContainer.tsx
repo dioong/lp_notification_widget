@@ -1,12 +1,15 @@
 import * as React from "react";
 import Notification from "./Notification";
 import _ from "lodash"
-import {notiTypes, WidgetPositions} from "../enums/NotificationProps";
+import '../styles/scss/notificationWidget.scss';
+
+import {NotiPositions, NotiTypes} from "../enums/NotificationProps";
 import uuidv1 from "uuid";
 import eventManager from "../utils/eventManager";
+import {EventTypes} from "../enums/EventTypes";
 
 interface NotificationScheme {
-    message:string, notiType:notiTypes, position: WidgetPositions, uuid: string, created: number
+    message:string, notiType:NotiTypes, position: NotiPositions, uuid: string, created: number
 }
 
 interface NotificationWidgetState {
@@ -17,6 +20,8 @@ interface NotificationWidgetProps {
     autoHideTime?: number
 }
 
+interface listMap {[s: string]: Array<any>;}
+
 class NotificationWidgetContainer extends React.Component<NotificationWidgetProps, NotificationWidgetState> {
     defaultAutoHideTime:number = 3000;
     _timeCheckId:any = null;
@@ -25,7 +30,7 @@ class NotificationWidgetContainer extends React.Component<NotificationWidgetProp
     };
 
     componentDidMount(): void {
-        eventManager.on("ADD", (message:string, notiType:notiTypes, position:WidgetPositions) => {
+        eventManager.on(EventTypes.add, (message:string, notiType:NotiTypes, position:NotiPositions) => {
             this.setState({
                 ...this.state,
                 notifications: [
@@ -33,7 +38,7 @@ class NotificationWidgetContainer extends React.Component<NotificationWidgetProp
                     {message:message, notiType:notiType, position:position, uuid: uuidv1(), created: Date.now()}
                 ]
             })})
-            .on("CLEAR", () => {
+            .on(EventTypes.clear, () => {
                 this.setState({
                     ...this.state,
                     notifications: []
@@ -44,6 +49,11 @@ class NotificationWidgetContainer extends React.Component<NotificationWidgetProp
         if (_.isEmpty(this.state.notifications)) return;
 
         this._runTimer()
+    }
+
+    componentWillUnmount(): void {
+        if (this._timeCheckId != null) clearTimeout(this._timeCheckId);
+        eventManager.off(EventTypes.clear).off(EventTypes.add)
     }
 
     _check_time = () => {
@@ -68,7 +78,6 @@ class NotificationWidgetContainer extends React.Component<NotificationWidgetProp
         this._timeCheckId = setTimeout(this._check_time, 300)
     };
 
-
     _onDelete = (uuid:string) => {
         this.setState({
             notifications: _.filter(this.state.notifications, (v, i) => {
@@ -78,8 +87,7 @@ class NotificationWidgetContainer extends React.Component<NotificationWidgetProp
     };
 
     renderNotification = () => {
-        interface stateMap {[s: string]: Array<any>;}
-        const notificationToRender:stateMap = {};
+        const notificationToRender:listMap = {};
 
         this.state.notifications.forEach(notification => {
             const { position, notiType, message, uuid } = notification;
@@ -102,7 +110,7 @@ class NotificationWidgetContainer extends React.Component<NotificationWidgetProp
                 </div>
             );
         })
-    }
+    };
 
     render() {
         return <div>{this.renderNotification()}</div>

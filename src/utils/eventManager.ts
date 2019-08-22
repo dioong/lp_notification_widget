@@ -1,20 +1,20 @@
+import {EventTypes} from "../enums/EventTypes";
+
 const eventManager = {
     list: new Map(),
 
-
-
-    on(event:string, callback:Function) {
+    on(event:EventTypes, callback:Function) {
         this.list.has(event) || this.list.set(event, []);
         this.list.get(event).push(callback);
         return this;
     },
 
-    off(event:string) {
+    off(event:EventTypes) {
         this.list.delete(event);
         return this;
     },
 
-    emit(event:string, ...args: any[]) {
+    emit(event:EventTypes, ...args: any[]) {
         this.list.has(event) &&
         this.list.get(event).forEach((callback: (args?: any) => void) =>
             setTimeout(() => {

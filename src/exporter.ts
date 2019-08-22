@@ -1,19 +1,20 @@
 import NotificationWidgetContainer from './components/NotificationWidgetContainer';
 import eventManager from './utils/eventManager';
-import {notiTypes, WidgetPositions} from "./enums/NotificationProps";
+import {NotiTypes, NotiPositions} from "./enums/NotificationProps";
+import {EventTypes} from "./enums/EventTypes";
 
-function showNotification(message:string, notiType:notiTypes, positions:WidgetPositions) {
-    eventManager.emit("ADD", message, notiType, positions);
+function showNotification(message:string, notiType:NotiTypes, positions:NotiPositions) {
+    eventManager.emit(EventTypes.add, message, notiType, positions);
 }
 
 function clearNotifications() {
-    eventManager.emit("CLEAR");
+    eventManager.emit(EventTypes.clear);
 }
 
 export {
     NotificationWidgetContainer,
     showNotification,
     clearNotifications,
-    WidgetPositions,
-    notiTypes
+    NotiPositions,
+    NotiTypes
 };

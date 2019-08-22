@@ -1,3 +1,8 @@
-@import "scss/body.scss";
-@import "scss/notificationWidget.scss";
-@import "scss/notification.scss";
+body {
+  background: grey;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+}

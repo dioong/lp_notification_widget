@@ -10,10 +10,12 @@
   border-radius: 4px;
 
   &.info {
-    background: white;
+    background: greenyellow;
+    color:grey;
   }
   &.warning {
     background: yellow;
+    color: black;
   }
   &.alert {
     background: red;
