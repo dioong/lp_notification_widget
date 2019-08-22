@@ -30,7 +30,9 @@ class App extends React.Component {
                 <button onClick={event=> this._addNotification(WidgetPositions.br)}>add br</button>
                 <button onClick={event=> this._addNotification(WidgetPositions.tr)}>add tr</button>
                 <button onClick={event=> this._clearNotifications()}>clear</button>
-                <NotificationWidgetContainer/>
+                <NotificationWidgetContainer
+                    autoHideTime={3000}
+                />
             </div>
         )
     }

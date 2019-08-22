@@ -13,25 +13,26 @@ interface NotificationWidgetState {
     notifications: Array<NotificationScheme>
 }
 
-interface NotificationWidgetProps {}
+interface NotificationWidgetProps {
+    autoHideTime?: number
+}
 
 class NotificationWidgetContainer extends React.Component<NotificationWidgetProps, NotificationWidgetState> {
-    visibleTime = 1000;
+    defaultAutoHideTime:number = 3000;
     _timeCheckId:any = null;
     state = {
         notifications: []
     };
 
     componentDidMount(): void {
-        eventManager
-            .on("ADD", (message:string, notiType:notiTypes, position:WidgetPositions) => {
-                this.setState({
-                    ...this.state,
-                    notifications: [
-                        ...this.state.notifications,
-                        {message:message, notiType:notiType, position:position, uuid: uuidv1(), created: Date.now()}
-                    ]
-                })})
+        eventManager.on("ADD", (message:string, notiType:notiTypes, position:WidgetPositions) => {
+            this.setState({
+                ...this.state,
+                notifications: [
+                    ...this.state.notifications,
+                    {message:message, notiType:notiType, position:position, uuid: uuidv1(), created: Date.now()}
+                ]
+            })})
             .on("CLEAR", () => {
                 this.setState({
                     ...this.state,
@@ -47,8 +48,8 @@ class NotificationWidgetContainer extends React.Component<NotificationWidgetProp
 
     _check_time = () => {
         const outDatedNotificationUuids = _(this.state.notifications).filter((v, i) => {
-                return v["created"] < Date.now() - this.visibleTime;
-            }).map("uuid").value();
+            return v["created"] < Date.now() - (this.props.autoHideTime || this.defaultAutoHideTime)
+        }).map("uuid").value();
 
         if (!_.isEmpty((outDatedNotificationUuids))) {
             this.setState({
@@ -84,13 +85,13 @@ class NotificationWidgetContainer extends React.Component<NotificationWidgetProp
             const { position, notiType, message, uuid } = notification;
             notificationToRender[position] || (notificationToRender[position] = []);
             notificationToRender[position].push(
-               <Notification
-                   uuid={uuid}
-                   key={uuid}
-                   message={message}
-                   notiType={notiType}
-                   onClickDelete={this._onDelete}
-               />
+                <Notification
+                    uuid={uuid}
+                    key={uuid}
+                    message={message}
+                    notiType={notiType}
+                    onClickDelete={this._onDelete}
+                />
             );
         });
 
