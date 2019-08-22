@@ -2,14 +2,17 @@
   "name": "lokal_notification_widget",
   "version": "0.1.0",
   "private": true,
-  "types": "dist/exporter.ts",
+  "main": "src/exporter.ts",
+  "types": "src/exporter.ts",
   "devDependencies": {
     "prettier": "^1.18.2",
     "tslint": "^5.19.0",
-    "tslint-config-prettier": "^1.18.0"
+    "tslint-config-prettier": "^1.18.0",
+    "react-scripts": "3.1.1",
+    "typescript": "3.5.3",
+    "@types/jest": "24.0.18"
   },
   "dependencies": {
-    "@types/jest": "24.0.18",
     "@types/lodash": "^4.14.137",
     "@types/node": "12.7.2",
     "@types/react": "16.9.2",
@@ -17,9 +20,7 @@
     "@types/uuid": "^3.4.5",
     "node-sass": "^4.12.0",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1",
-    "typescript": "3.5.3"
+    "react-dom": "^16.9.0"
   },
   "scripts": {
     "start": "react-scripts start",
