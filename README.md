@@ -1,4 +1,4 @@
-# lk notification widget task
+# lp notification widget task
 
 ## Installation
 Install dependencies using yarn
@@ -19,13 +19,9 @@ yarn start
 3. `npm update lokal_notification_widget` or `yarn upgrade lokal_notification_widget` when repository has been updated
 4. use in your application.
 
-clearNotifications, NotificationWidgetContainer, NotiPositions, NotiTypes, showNotification
-- NotificationWidgetContainer
+- add component NotificationWidgetContainer to your project
     ```javascript
     import {NotificationWidgetContainer} from "lokal_notification_widget";
-    /**
-        you can refer propTypes below
-    */
     propTypes = {
         autoHideTime: number        //time to autohide notification, unit is millisecond
     };
@@ -39,12 +35,12 @@ clearNotifications, NotificationWidgetContainer, NotiPositions, NotiTypes, showN
     ```javascript
     import {NotiPositions, NotiTypes, showNotification, clearNotifications} from "lokal_notification_widget";
     /**
-        when you want showNotification,
+        when you want show notification,
     */
-    showNotification(message:string || "", notiType:NotiTypes, position:NotiPositions)
+    showNotification(message:string, notiType:NotiTypes, position:NotiPositions)
 
     /**
-        when you want showNotification,
+        when you want clear all notification,
     */
     clearNotifications()
     ```
@@ -54,7 +50,7 @@ clearNotifications, NotificationWidgetContainer, NotiPositions, NotiTypes, showN
 [React](https://github.com/facebook/react)
 
 #### TypeScript
-[Konvajs](https://konvajs.github.io/)
+[TypeScript](https://www.typescriptlang.org/)
 
 #### Lodash
 [Lodash](https://lodash.com/)
