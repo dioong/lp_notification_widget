@@ -1,23 +1,24 @@
+@import "../variables";
+
 .lp-notification-container {
   position: fixed;
-  padding: 4px;
-  width: 320px;
+  width: $notification-width;
   box-sizing: border-box;
   color: #fff;
   &.top-left {
-    top: 5px;
-    left: 5px;
+    top: $notification-margin;
+    left: $notification-margin;
   }
   &.top-right {
-    top: 5px;
-    right: 5px;
+    top: $notification-margin;
+    right: $notification-margin;
   }
   &.bottom-left {
-    bottom: 5px;
-    left: 5px;
+    bottom: $notification-margin;
+    left: $notification-margin;
   }
   &.bottom-right {
-    bottom: 5px;
-    right: 5px;
+    bottom: $notification-margin;
+    right: $notification-margin;
   }
 }

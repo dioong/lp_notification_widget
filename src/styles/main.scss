@@ -1,8 +1,29 @@
+@import "variables.scss";
 body {
-  background: grey;
+  background: #aaa;
+  font-family: Roboto,sans-serif;
+  font-size: $font-m;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  font-size: $font-l;
+  border-radius: $border-radius;
+  margin: 0 5px;
+  &:active {
+    opacity: .3;
+  }
 }
 
 .menu {
   display: flex;
   justify-content: center;
+  margin-top: 250px;
+
+  .menu-button{
+    line-height: 24px;
+  }
 }

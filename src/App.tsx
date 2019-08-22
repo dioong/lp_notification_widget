@@ -14,11 +14,11 @@ class App extends React.Component {
     public render() {
         return (
             <div className={"menu"}>
-                <button onClick={event=> this._addNotification(NotiTypes.alert, NotiPositions.tl)}>add tl alert</button>
-                <button onClick={event=> this._addNotification(NotiTypes.warning, NotiPositions.bl)}>add bl warning</button>
-                <button onClick={event=> this._addNotification(NotiTypes.info, NotiPositions.br)}>add br info</button>
-                <button onClick={event=> this._addNotification(NotiTypes.alert, NotiPositions.tr)}>add tr alert</button>
-                <button onClick={event=> this._clearNotifications()}>clear</button>
+                <button className={"menu-button"} onClick={event=> this._addNotification(NotiTypes.alert, NotiPositions.tl)}>Top Left alert</button>
+                <button className={"menu-button"} onClick={event=> this._addNotification(NotiTypes.alert, NotiPositions.tr)}>Top Right alert</button>
+                <button className={"menu-button"} onClick={event=> this._addNotification(NotiTypes.warning, NotiPositions.bl)}>Bottom Left warning</button>
+                <button className={"menu-button"} onClick={event=> this._addNotification(NotiTypes.info, NotiPositions.br)}>Bottom Right info</button>
+                <button className={"menu-button"} onClick={event=> this._clearNotifications()}>clear</button>
                 <NotificationWidgetContainer
                     autoHideTime={5000}
                 />
