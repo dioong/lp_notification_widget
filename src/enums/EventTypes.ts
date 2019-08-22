@@ -1,4 +1,4 @@
 export enum EventTypes {
-    add='alert',
-    clear='info',
+  add = 'alert',
+  clear = 'info',
 }

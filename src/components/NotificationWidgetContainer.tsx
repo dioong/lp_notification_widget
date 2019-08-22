@@ -8,34 +8,34 @@ import uuidv1 from "uuid";
 import eventManager from "../utils/eventManager";
 import {EventTypes} from "../enums/EventTypes";
 
-interface NotificationScheme {
+interface InotificationScheme {
     message:string, notiType:NotiTypes, position: NotiPositions, uuid: string, created: number
 }
 
-interface NotificationWidgetState {
-    notifications: Array<NotificationScheme>
+interface InotificationWidgetState {
+    notifications: Array<InotificationScheme>
 }
 
-interface NotificationWidgetProps {
+interface InotificationWidgetProps {
     autoHideTime?: number
 }
 
-interface listMap {[s: string]: Array<any>;}
+interface IlistMap {[s: string]: Array<any>;}
 
-class NotificationWidgetContainer extends React.Component<NotificationWidgetProps, NotificationWidgetState> {
+class NotificationWidgetContainer extends React.Component<InotificationWidgetProps, InotificationWidgetState> {
     defaultAutoHideTime:number = 3000;
     _timeCheckId:any = null;
     state = {
         notifications: []
     };
 
-    componentDidMount(): void {
+    public componentDidMount(): void {
         eventManager.on(EventTypes.add, (message:string, notiType:NotiTypes, position:NotiPositions) => {
             this.setState({
                 ...this.state,
                 notifications: [
                     ...this.state.notifications,
-                    {message:message, notiType:notiType, position:position, uuid: uuidv1(), created: Date.now()}
+                    {message, notiType, position, uuid: uuidv1(), created: Date.now()}
                 ]
             })})
             .on(EventTypes.clear, () => {
@@ -45,18 +45,22 @@ class NotificationWidgetContainer extends React.Component<NotificationWidgetProp
                 })})
     }
 
-    componentDidUpdate(prevProps: Readonly<NotificationWidgetProps>, prevState: Readonly<NotificationWidgetState>, snapshot?: any): void {
-        if (_.isEmpty(this.state.notifications)) return;
+    public componentDidUpdate(prevProps: Readonly<InotificationWidgetProps>, prevState: Readonly<InotificationWidgetState>, snapshot?: any): void {
+        if (_.isEmpty(this.state.notifications)) {
+            return;
+        }
 
         this._runTimer()
     }
 
-    componentWillUnmount(): void {
-        if (this._timeCheckId != null) clearTimeout(this._timeCheckId);
+    public componentWillUnmount(): void {
+        if (this._timeCheckId != null) {
+            clearTimeout(this._timeCheckId);
+        }
         eventManager.off(EventTypes.clear).off(EventTypes.add)
     }
 
-    _check_time = () => {
+    private _check_time = () => {
         const outDatedNotificationUuids = _(this.state.notifications).filter((v, i) => {
             return v["created"] < Date.now() - (this.props.autoHideTime || this.defaultAutoHideTime)
         }).map("uuid").value();
@@ -87,7 +91,7 @@ class NotificationWidgetContainer extends React.Component<NotificationWidgetProp
     };
 
     renderNotification = () => {
-        const notificationToRender:listMap = {};
+        const notificationToRender:IlistMap = {};
 
         this.state.notifications.forEach(notification => {
             const { position, notiType, message, uuid } = notification;

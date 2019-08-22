@@ -3,27 +3,15 @@ import './styles/main.scss';
 import {clearNotifications, NotificationWidgetContainer, NotiPositions, NotiTypes, showNotification} from "./exporter";
 
 class App extends React.Component {
-    state: {
-        notifications: []
-    };
-
-    constructor({props}: { props: any }) {
-        super(props);
-
-        // Set the state directly. Use props if necessary.
-        this.state = {
-            notifications: [],
-        }
-    }
-    _addNotification = (notiType:NotiTypes, position:NotiPositions) => {
+    private _addNotification = (notiType:NotiTypes, position:NotiPositions) => {
         const message:string|null = prompt("insert notification message");
         showNotification(message || "", notiType, position)
     };
-    _clearNotifications = () => {
+    private _clearNotifications = () => {
         clearNotifications()
     };
 
-    render() {
+    public render() {
         return (
             <div className={"menu"}>
                 <button onClick={event=> this._addNotification(NotiTypes.alert, NotiPositions.tl)}>add tl alert</button>
