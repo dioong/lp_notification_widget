@@ -1,9 +1,7 @@
 {
   "name": "lokal_notification_widget",
   "version": "0.1.0",
-  "private": true,
-  "main": "src/exporter.ts",
-  "types": "src/exporter.ts",
+  "private": false,
   "devDependencies": {
     "prettier": "^1.18.2",
     "tslint": "^5.19.0",
@@ -25,6 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "tsc_build": "tsc",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
