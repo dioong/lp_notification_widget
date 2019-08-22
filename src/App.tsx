@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/main.scss';
-import {clearNotifications, NotificationWidgetContainer, NotiPositions, NotiTypes, showNotification} from "./exporter";
+import {NotificationWidgetContainer, NotiPositions, NotiTypes, showNotification, clearNotifications} from "./exporter";
 
 class App extends React.Component {
     private _addNotification = (notiType:NotiTypes, position:NotiPositions) => {
