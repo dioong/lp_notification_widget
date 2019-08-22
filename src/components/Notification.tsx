@@ -5,7 +5,7 @@ interface NotificationProps {uuid: string; notiType: string; message: string; on
 const Notification: React.SFC<NotificationProps> = (props) => {
     return <div className={`notification ${props.notiType}`}>
         <div className={"message"}>{props.message}</div>
-        <button className={'close-btn'} onClick={e => props.onClickDelete(props.uuid)}>x</button>
+        <button className={'close-btn'} onClick={e => props.onClickDelete(props.uuid)}>✖</button>
     </div>
 }
 

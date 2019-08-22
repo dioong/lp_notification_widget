@@ -1,20 +1,86 @@
 import * as React from "react";
 import Notification from "./Notification";
 import _ from "lodash"
-interface NotificationWidgetProps {
-    notifications: any[];
-    onDelete: Function;
+import {notiTypes, WidgetPositions} from "../enums/NotificationProps";
+import uuidv1 from "uuid";
+import eventManager from "../utils/eventManager";
+
+interface NotificationScheme {
+    message:string, notiType:notiTypes, position: WidgetPositions, uuid: string, created: number
 }
 
-class NotificationWidgetContainer extends React.Component<NotificationWidgetProps> {
-    onDelete = (uuid:string) => {
-        this.props.onDelete(uuid)
+interface NotificationWidgetState {
+    notifications: Array<NotificationScheme>
+}
+
+interface NotificationWidgetProps {}
+
+class NotificationWidgetContainer extends React.Component<NotificationWidgetProps, NotificationWidgetState> {
+    visibleTime = 1000;
+    _timeCheckId:any = null;
+    state = {
+        notifications: []
     };
+
+    componentDidMount(): void {
+        eventManager
+            .on("ADD", (message:string, notiType:notiTypes, position:WidgetPositions) => {
+                this.setState({
+                    ...this.state,
+                    notifications: [
+                        ...this.state.notifications,
+                        {message:message, notiType:notiType, position:position, uuid: uuidv1(), created: Date.now()}
+                    ]
+                })})
+            .on("CLEAR", () => {
+                this.setState({
+                    ...this.state,
+                    notifications: []
+                })})
+    }
+
+    componentDidUpdate(prevProps: Readonly<NotificationWidgetProps>, prevState: Readonly<NotificationWidgetState>, snapshot?: any): void {
+        if (_.isEmpty(this.state.notifications)) return;
+
+        this._runTimer()
+    }
+
+    _check_time = () => {
+        const outDatedNotificationUuids = _(this.state.notifications).filter((v, i) => {
+                return v["created"] < Date.now() - this.visibleTime;
+            }).map("uuid").value();
+
+        if (!_.isEmpty((outDatedNotificationUuids))) {
+            this.setState({
+                ...this.state,
+                notifications: _.filter(this.state.notifications, (v, i) => {
+                    return !_.includes(outDatedNotificationUuids, v["uuid"])
+                })
+            })
+        }
+
+        this._runTimer()
+    };
+
+    _runTimer = () =>{
+        if (this._timeCheckId != null) clearTimeout(this._timeCheckId);
+        this._timeCheckId = setTimeout(this._check_time, 300)
+    };
+
+
+    _onDelete = (uuid:string) => {
+        this.setState({
+            notifications: _.filter(this.state.notifications, (v, i) => {
+                return v["uuid"] !== uuid;
+            })
+        })
+    };
+
     renderNotification = () => {
         interface stateMap {[s: string]: Array<any>;}
         const notificationToRender:stateMap = {};
 
-        this.props.notifications.forEach(notification => {
+        this.state.notifications.forEach(notification => {
             const { position, notiType, message, uuid } = notification;
             notificationToRender[position] || (notificationToRender[position] = []);
             notificationToRender[position].push(
@@ -23,7 +89,7 @@ class NotificationWidgetContainer extends React.Component<NotificationWidgetProp
                    key={uuid}
                    message={message}
                    notiType={notiType}
-                   onClickDelete={this.onDelete}
+                   onClickDelete={this._onDelete}
                />
             );
         });

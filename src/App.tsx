@@ -1,9 +1,6 @@
 import React from 'react';
-import uuidv1 from "uuid";
 import './styles/main.scss';
-import {WidgetPositions, notiTypes} from "./enums/NotificationProps";
-import NotificationWidgetContainer from "./components/NotificationWidgetContainer"
-import _ from "lodash"
+import {WidgetPositions, notiTypes, NotificationWidgetContainer, showNotification, clearNotifications} from "./exporter";
 
 class App extends React.Component {
     state: {
@@ -19,21 +16,10 @@ class App extends React.Component {
         }
     }
     _addNotification = (position:WidgetPositions) => {
-        this.setState({notifications:[
-                ...this.state.notifications,
-                {message:"test", notiType:notiTypes.alert, position, uuid: uuidv1()}
-            ]
-        })
+        showNotification("test", notiTypes.alert, position)
     };
     _clearNotifications = () => {
-        this.setState({notifications:[]})
-    };
-    _onDelete = (uuid:string) => {
-        this.setState({
-            notifications: _.filter(this.state.notifications, (v, i) => {
-                return v["uuid"] !== uuid;
-            })
-        })
+        clearNotifications()
     };
 
     render() {
@@ -44,10 +30,7 @@ class App extends React.Component {
                 <button onClick={event=> this._addNotification(WidgetPositions.br)}>add br</button>
                 <button onClick={event=> this._addNotification(WidgetPositions.tr)}>add tr</button>
                 <button onClick={event=> this._clearNotifications()}>clear</button>
-                <NotificationWidgetContainer
-                    notifications={this.state.notifications}
-                    onDelete={this._onDelete}
-                />
+                <NotificationWidgetContainer/>
             </div>
         )
     }
