@@ -109,7 +109,7 @@ class NotificationWidgetContainer extends React.Component<InotificationWidgetPro
 
         return _.keys(notificationToRender).map(position => {
             return (
-                <div className={`notification-container ${position}`} key={position}>
+                <div className={`lp-notification-container ${position}`} key={position}>
                     {notificationToRender[position]}
                 </div>
             );

@@ -2,8 +2,7 @@
   "name": "lokal_notification_widget",
   "version": "0.1.0",
   "private": true,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/exporter.ts",
   "devDependencies": {
     "prettier": "^1.18.2",
     "tslint": "^5.19.0",

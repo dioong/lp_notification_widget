@@ -1,4 +1,4 @@
-.notification {
+.lp-notification {
   position: relative;
   min-height: 64px;
   box-sizing: border-box;
@@ -24,11 +24,11 @@
     margin: auto 0;
     flex: 1;
   }
-  .message{
+  .lp-message{
     margin: auto 0;
     flex: 1 1;
   }
-  .close-btn{
+  .lp-close-btn{
     color: #fff;
     font-weight: 700;
     font-size: 14px;

@@ -4,9 +4,9 @@ import '../styles/scss/notification.scss';
 interface InotificationProps {uuid: string; notiType: string; message: string; onClickDelete: Function;}
 
 const Notification: React.SFC<InotificationProps> = (props) => {
-    return <div className={`notification ${props.notiType}`}>
-        <div className={"message"}>{props.message}</div>
-        <button className={'close-btn'} onClick={e => props.onClickDelete(props.uuid)}>✖</button>
+    return <div className={`lp-notification ${props.notiType}`}>
+        <div className={"lp-message"}>{props.message}</div>
+        <button className={'lp-close-btn'} onClick={e => props.onClickDelete(props.uuid)}>✖</button>
     </div>
 }
 
