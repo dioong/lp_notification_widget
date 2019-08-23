@@ -52,3 +52,7 @@ yarn start
 
 #### Branching
 Git-flow strategy. Detail information [here](http://nvie.com/posts/a-successful-git-branching-model/).
+
+## todo list
+### make it import other project
+### add animiation options
