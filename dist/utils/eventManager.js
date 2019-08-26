@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var eventManager = {
     list: new Map(),
     on: function (event, callback) {
@@ -24,4 +22,4 @@ var eventManager = {
             });
     },
 };
-exports.default = eventManager;
+export default eventManager;
