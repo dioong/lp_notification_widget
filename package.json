@@ -1,5 +1,5 @@
 {
-  "name": "lokal_notification_widget",
+  "name": "lp_notification_widget",
   "version": "0.1.1",
   "private": false,
   "main": "dist/exporter.js",
