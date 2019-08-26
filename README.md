@@ -24,7 +24,8 @@ yarn start
   import {NotificationWidget, NotiPositions, NotiTypes} from "lp_notification_widget";
   /**
     to initialize     
-  */  
+  */
+  const autoHideTime = 3000  
   const notificationWidget = new NotificationWidget(autoHideTime)
   
   /**
