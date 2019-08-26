@@ -25,13 +25,20 @@ var App = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this._addNotification = function (notiType, position) {
             var message = prompt("insert notification message");
-            exporter_1.showNotification(message || "", notiType, position);
+            if (_this.notificationWidget) {
+                _this.notificationWidget.showNotification(message || "", notiType, position);
+            }
         };
         _this._clearNotifications = function () {
-            exporter_1.clearNotifications();
+            if (_this.notificationWidget) {
+                _this.notificationWidget.clearNotifications();
+            }
         };
         return _this;
     }
+    App.prototype.componentDidMount = function () {
+        this.notificationWidget = new exporter_1.NotificationWidget(5000);
+    };
     App.prototype.render = function () {
         var _this = this;
         return (react_1.default.createElement("div", { className: "menu" },
@@ -39,8 +46,7 @@ var App = /** @class */ (function (_super) {
             react_1.default.createElement("button", { className: "menu-button", onClick: function (event) { return _this._addNotification(exporter_1.NotiTypes.alert, exporter_1.NotiPositions.tr); } }, "Top Right alert"),
             react_1.default.createElement("button", { className: "menu-button", onClick: function (event) { return _this._addNotification(exporter_1.NotiTypes.warning, exporter_1.NotiPositions.bl); } }, "Bottom Left warning"),
             react_1.default.createElement("button", { className: "menu-button", onClick: function (event) { return _this._addNotification(exporter_1.NotiTypes.info, exporter_1.NotiPositions.br); } }, "Bottom Right info"),
-            react_1.default.createElement("button", { className: "menu-button", onClick: function (event) { return _this._clearNotifications(); } }, "clear"),
-            react_1.default.createElement(exporter_1.NotificationWidgetContainer, { autoHideTime: 5000 })));
+            react_1.default.createElement("button", { className: "menu-button", onClick: function (event) { return _this._clearNotifications(); } }, "clear")));
     };
     return App;
 }(react_1.default.Component));

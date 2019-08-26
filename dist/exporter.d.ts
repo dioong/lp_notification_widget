@@ -1,5 +1,8 @@
-import NotificationWidgetContainer from './components/NotificationWidgetContainer';
 import { NotiTypes, NotiPositions } from './enums/NotificationProps';
-declare function showNotification(message: string, notiType: NotiTypes, positions: NotiPositions): void;
-declare function clearNotifications(): void;
-export { NotificationWidgetContainer, showNotification, clearNotifications, NotiPositions, NotiTypes };
+declare class NotificationWidget {
+    _autoHideTime: number;
+    constructor(autoHideTime: number);
+    showNotification(message: string, notiType: NotiTypes, positions: NotiPositions): void;
+    clearNotifications(): void;
+}
+export { NotificationWidget, NotiPositions, NotiTypes };

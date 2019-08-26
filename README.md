@@ -21,28 +21,21 @@ yarn start
 
 - add component NotificationWidgetContainer to your project
     ```javascript
-    import {NotificationWidgetContainer} from "lokal_notification_widget/dist/exporter";
-    propTypes = {
-        autoHideTime: number        //time to autohide notification, unit is millisecond
-    };
-
-    <NotificationWidgetContainer
-        autoHideTime={5000}
-        />
-    ```
-
-- usable function
-    ```javascript
-    import {NotiPositions, NotiTypes, showNotification, clearNotifications} from "lokal_notification_widget/dist/exporter";
-    /**
-        when you want show notification,
+  import {NotificationWidget, NotiPositions, NotiTypes} from "lokal_notification_widget";
+  /**
+    to initialize     
+  */  
+  const notificationWidget = new NotificationWidget(autoHideTime)
+  
+  /**
+    to show notification     
     */
-    showNotification(message:string, notiType:NotiTypes, position:NotiPositions)
+  notificationWidget.showNotification(message:string, notiType:NotiTypes, position:NotiPositions)
 
-    /**
-        when you want clear all notification,
-    */
-    clearNotifications()
+  /**
+    to clear all notification,
+  */
+  notificationWidget.clearNotifications()
     ```
 
 ## Technology stack
