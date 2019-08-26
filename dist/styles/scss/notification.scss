@@ -1,0 +1,44 @@
+@import "../variables.scss";
+
+.lp-notification {
+  position: relative;
+  min-height: $notification-min-height;
+  box-sizing: border-box;
+  padding: $notification-padding;
+  display: flex;
+  justify-content: space-between;
+  border-radius: $border-radius;
+  margin: 10px 0;
+
+  &.info {
+    background: $notification-info-bg-color;
+    color:$notification-info-color;
+  }
+  &.warning {
+    background: $notification-warning-bg-color;
+    color: $notification-warning-color;
+  }
+  &.alert {
+    background: $notification-alert-bg-color;
+    color: $notification-alert-color;
+  }
+  &.body {
+    margin: auto 0;
+    flex: 1;
+  }
+  .lp-message{
+    margin: auto 0;
+    flex: 1 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .lp-close-btn{
+    color: #000;
+    font-size: $font-m;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+}
